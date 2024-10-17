@@ -3,6 +3,7 @@ package com.example.nagoyamesi.service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.example.nagoyamesi.entity.Subscription;
 import com.example.nagoyamesi.entity.User;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @Service
 public class StripeService {
 	private UserService userService;
+	
 	@Value("${stripe.api-key}")
 	private String stripeApiKey;
 	
@@ -46,7 +48,7 @@ public class StripeService {
 				.setMode(SessionCreateParams.Mode.SUBSCRIPTION)
 
 				.setSuccessUrl(requestUrl.replaceAll("/subscription/register", "") + "/?reserved")
-				.setCancelUrl(requestUrl.replace("/subscriptioner", ""))
+				.setCancelUrl(requestUrl.replace("/subscription", ""))
 				.putMetadata("userId", String.valueOf(user.getId()))
 				.build();
 		
@@ -61,7 +63,8 @@ public class StripeService {
 
 	}
 	
-	public String processSessionCompleted(Event event) {
+	public void processSessionCompleted(Event event) {
+		Subscription subscription = userService.findSubscriptionByStripeCustomerId(stripeCustomerId);
 		Session session = (Session) event.getDataObjectDeserializer().getObject().orElse(null);
 		session.getCustomer();
 		User user = subscription.getUser();

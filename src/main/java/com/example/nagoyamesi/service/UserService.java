@@ -13,12 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.nagoyamesi.entity.PasswordResetToken;
 import com.example.nagoyamesi.entity.Role;
+import com.example.nagoyamesi.entity.Subscription;
 import com.example.nagoyamesi.entity.User;
 import com.example.nagoyamesi.form.PasswordResetForm;
 import com.example.nagoyamesi.form.SignupForm;
 import com.example.nagoyamesi.form.UserEditForm;
 import com.example.nagoyamesi.repository.PasswordResetTokenRepository;
 import com.example.nagoyamesi.repository.RoleRepository;
+import com.example.nagoyamesi.repository.SubscriptionRepository;
 import com.example.nagoyamesi.repository.UserRepository;
 
 @Service
@@ -28,14 +30,17 @@ public class UserService {
 	private final PasswordEncoder passwordEncoder;
 	private final PasswordResetTokenRepository passwordResetTokenRepository;
 	private final UserDetailsService userDetailsService;
+	private final SubscriptionRepository subscriptionRepository;
 	
 	public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder,
-			PasswordResetTokenRepository passwordResetTokenRepository, UserDetailsService userDetailsService) {
+			PasswordResetTokenRepository passwordResetTokenRepository, UserDetailsService userDetailsService,
+			SubscriptionRepository subscriptionRepository) {
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
 		this.passwordEncoder = passwordEncoder;
 		this.passwordResetTokenRepository = passwordResetTokenRepository;
 		this.userDetailsService = userDetailsService;
+		this.subscriptionRepository = subscriptionRepository;
 	}
 
 	@Transactional
@@ -173,4 +178,8 @@ public class UserService {
                 new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
+	
+	public Subscription findSubscriptionByStripeCustomerId(String stripeCustomerId) {
+		return subscriptionRepository.findByStripeCustomerId(stripeCustomerId);
+		}
 }

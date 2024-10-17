@@ -7,6 +7,6 @@ import com.example.nagoyamesi.entity.Subscription;
 
 public interface SubscriptionRepository extends JpaRepository<Subscription, Integer> {
     
-    public Subscription findSubscriptionByStripeCustomerId(String stripeCustomerId);
+	public Subscription findByStripeCustomerId(String stripeCustomerId);
 }
 

@@ -32,7 +32,7 @@ public class SubscriptionController {
 	}
 
 	@GetMapping("/register")
-	public String index(Model model) {
+	public String index() {
 		return "subscription/register";
 	}
 
@@ -45,7 +45,7 @@ public class SubscriptionController {
 		
 		redirectAttributes.addFlashAttribute("successMessage", "有料会員登録が完了しました。");
 
-		return "redirect:https://buy.stripe.com/test_6oE9EB66j7uS4HSbIJ";
+		return "redirect:/https://buy.stripe.com/test_6oE9EB66j7uS4HSbIJ";
 	}
 	
 	

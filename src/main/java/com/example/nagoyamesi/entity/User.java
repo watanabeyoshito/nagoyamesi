@@ -37,7 +37,7 @@ public class User {
     @Column(name = "enabled")
     private Boolean enabled;
     
-    @Column(name = "subscription_id")
+    @JoinColumn(name = "subscription_id")
     private String subscriptionId;
     
     @Column(name = "created_at", insertable = false, updatable = false)
