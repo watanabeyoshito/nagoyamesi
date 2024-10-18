@@ -40,12 +40,11 @@ public class SubscriptionController {
 	public String create(Model model, HttpServletRequest httpServletRequest,
 			@AuthenticationPrincipal UserDetailsImpl userDetailsImpl, RedirectAttributes redirectAttributes) {
 		User user = userDetailsImpl.getUser();
-		String sessionId = stripeService.createStripeSession(httpServletRequest, user);
-		model.addAttribute("sessionId", sessionId);
+		String sessionUrl = stripeService.createStripeSession(httpServletRequest, user);
 		
-		redirectAttributes.addFlashAttribute("successMessage", "有料会員登録が完了しました。");
-
-		return "redirect:/https://buy.stripe.com/test_6oE9EB66j7uS4HSbIJ";
+		model.addAttribute("sessionUrl", sessionUrl);
+		
+		return "redirect:" + sessionUrl;
 	}
 	
 	

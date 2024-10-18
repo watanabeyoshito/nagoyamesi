@@ -36,6 +36,8 @@ CREATE TABLE IF NOT EXISTS roles (
     user_id INT NOT NULL,
     stripe_customer_id VARCHAR(255) NOT NULL,
     stripe_subscription_id VARCHAR(255) NOT NULL,
+    start_date DATE NOT NULL,  
+    end_date DATE DEFAULT NULL, 
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     UNIQUE (id, user_id)
