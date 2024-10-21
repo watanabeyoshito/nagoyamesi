@@ -50,7 +50,7 @@ public class StripeService {
 
 	            .setSuccessUrl(baseUrl + "/?reserved")
 
-	            .setCancelUrl(baseUrl + "/subscription/delete")
+	            .setCancelUrl(baseUrl + "/subscription")
 	            .putMetadata("userId", String.valueOf(user.getId()))
 	            .build();
 	    
@@ -66,16 +66,18 @@ public class StripeService {
 	
 	public void processSessionCompleted(Event event) {
 	    Session session = (Session) event.getDataObjectDeserializer().getObject().orElse(null);
+	    if (session == null) {
+	        return; 
+	    }
 
 	    String stripeCustomerId = session.getCustomer();
 	    
 	    Subscription subscription = userService.findSubscriptionByStripeCustomerId(stripeCustomerId);
-	    
-	    User user = subscription.getUser();
-
-	    userService.upgradeRole(user.getId());
-	    
-	    System.out.println("User role upgraded for user ID: " + user.getId());
-
+	    if (subscription != null) {
+	        User user = subscription.getUser();
+	        subscription.setStripeSubscriptionId(session.getSubscription());
+	        userService.upgradeRole(user.getId()); 
+	        System.out.println("User role upgraded for user ID: " + user.getId());
+	    }
 	}
 }
