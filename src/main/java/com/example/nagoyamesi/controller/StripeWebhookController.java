@@ -16,9 +16,9 @@ import com.stripe.net.Webhook;
 
 @Controller
 public class StripeWebhookController {
-	private final StripeService stripeService;
-	
-	@Value("${stripe.api-key}")
+    private final StripeService stripeService;
+    
+    @Value("${stripe.api-key}")
     private String stripeApiKey;
 
     @Value("${stripe.webhook-secret}")
@@ -33,16 +33,21 @@ public class StripeWebhookController {
         Stripe.apiKey = stripeApiKey;
         Event event = null;
 
+
         try {
             event = Webhook.constructEvent(payload, sigHeader, webhookSecret);
         } catch (SignatureVerificationException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid signature");
         }
 
-        if ("checkout.session.completed".equals(event.getType())) {
-            stripeService.processSessionCompleted(event);
-        }
+        switch (event.getType()) {
+            case "checkout.session.completed":
+                stripeService.processSessionCompleted(event);
+                return new ResponseEntity<>("Checkout session completed", HttpStatus.OK);
 
-        return new ResponseEntity<>("Success", HttpStatus.OK);
+            default:
+
+                return new ResponseEntity<>("Unhandled event type: " + event.getType(), HttpStatus.OK);
+        }
     }
 }

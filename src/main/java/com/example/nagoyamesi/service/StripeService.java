@@ -48,17 +48,15 @@ public class StripeService {
 	                            .build())
 	            .setMode(SessionCreateParams.Mode.SUBSCRIPTION)
 
-	            // 決済成功後にトップページにリダイレクト
 	            .setSuccessUrl(baseUrl + "/?reserved")
 
-	            // 決済キャンセル時のURL（必要に応じて設定）
 	            .setCancelUrl(baseUrl + "/subscription/delete")
 	            .putMetadata("userId", String.valueOf(user.getId()))
 	            .build();
 	    
 	    try {
 	        Session session = Session.create(params);
-	        return session.getUrl();  // URLを返す
+	        return session.getUrl(); 
 	    } catch (StripeException e) {
 	        System.err.println("Stripeエラー: " + e.getMessage());
 	        e.printStackTrace();
@@ -67,12 +65,17 @@ public class StripeService {
 	}
 	
 	public void processSessionCompleted(Event event) {
-		Session session = (Session) event.getDataObjectDeserializer().getObject().orElse(null);
-		String stripeCustomerId = session.getCustomer();
-		Subscription subscription = userService.findSubscriptionByStripeCustomerId(stripeCustomerId);
-		session.getCustomer();
-		User user = subscription.getUser();
-		userService.upgradeRole(user.getId());
+	    Session session = (Session) event.getDataObjectDeserializer().getObject().orElse(null);
+
+	    String stripeCustomerId = session.getCustomer();
+	    
+	    Subscription subscription = userService.findSubscriptionByStripeCustomerId(stripeCustomerId);
+	    
+	    User user = subscription.getUser();
+
+	    userService.upgradeRole(user.getId());
+	    
+	    System.out.println("User role upgraded for user ID: " + user.getId());
 
 	}
 }

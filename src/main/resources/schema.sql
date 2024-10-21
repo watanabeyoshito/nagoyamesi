@@ -36,10 +36,8 @@ CREATE TABLE IF NOT EXISTS roles (
     user_id INT NOT NULL,
     stripe_customer_id VARCHAR(255) NOT NULL,
     stripe_subscription_id VARCHAR(255) NOT NULL,
-    start_date DATE NOT NULL,  
-    end_date DATE DEFAULT NULL, 
-    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    start_date DATETIME NOT NULL,  
+    end_date DATETIME DEFAULT NULL, 
     UNIQUE (id, user_id)
 );
 
@@ -50,11 +48,9 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(255) NOT NULL,
     role_id INT NOT NULL,
     enabled BOOLEAN NOT NULL,
-    subscription_id INT,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (role_id) REFERENCES roles (id),
-    FOREIGN KEY (subscription_id) REFERENCES subscription(id)
+    FOREIGN KEY (role_id) REFERENCES roles (id)
 );
  
  CREATE TABLE IF NOT EXISTS verification_tokens (

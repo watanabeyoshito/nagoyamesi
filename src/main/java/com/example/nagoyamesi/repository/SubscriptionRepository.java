@@ -9,4 +9,3 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Inte
     
 	public Subscription findByStripeCustomerId(String stripeCustomerId);
 }
-

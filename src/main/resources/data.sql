@@ -80,18 +80,18 @@ INSERT IGNORE INTO roles (id, name) VALUES (2, 'ROLE_PREMIUM');
 INSERT IGNORE INTO roles (id, name) VALUES (3, 'ROLE_ADMIN');
 
 -- users
-INSERT IGNORE INTO users (id, name, email, password, role_id, enabled, subscription_id) VALUES (1, '侍 太郎',  'taro.samurai@example.com', '$2a$10$2JNjTwZBwo7fprL2X4sv.OEKqxnVtsVQvuXDkI8xVGix.U3W5B7CO', 1, true, NULL);
-INSERT IGNORE INTO users (id, name, email, password, role_id, enabled, subscription_id) VALUES(2, '侍 花子', 'hanako.samurai@example.com', '$2a$10$2JNjTwZBwo7fprL2X4sv.OEKqxnVtsVQvuXDkI8xVGix.U3W5B7CO', 3, true, NULL);
-INSERT IGNORE INTO users (id, name, email, password, role_id, enabled, subscription_id) VALUES (3, '侍 義勝', 'yoshikatsu.samurai@example.com', 'password', 1, false, NULL);
-INSERT IGNORE INTO users (id, name, email, password, role_id, enabled, subscription_id) VALUES (4, '侍 幸美', 'sachimi.samurai@example.com', 'password', 1, false, NULL);
-INSERT IGNORE INTO users (id, name, email, password, role_id, enabled, subscription_id) VALUES (5, '侍 雅', 'miyabi.samurai@example.com', 'password', 1, false, NULL);
-INSERT IGNORE INTO users (id, name, email, password, role_id, enabled, subscription_id) VALUES (6, '侍 正保','masayasu.samurai@example.com', 'password', 1, false, NULL);
-INSERT IGNORE INTO users (id, name, email, password, role_id, enabled, subscription_id) VALUES (7, '侍 真由美', 'mayumi.samurai@example.com', 'password', 1, false, NULL);
-INSERT IGNORE INTO users (id, name, email, password, role_id, enabled, subscription_id) VALUES (8, '侍 安民', 'yasutami.samurai@example.com', 'password', 1, false, NULL);
-INSERT IGNORE INTO users (id, name, email, password, role_id, enabled, subscription_id) VALUES (9, '侍 章緒', 'akio.samurai@example.com', 'password', 1, false, NULL);
-INSERT IGNORE INTO users (id, name, email, password, role_id, enabled, subscription_id) VALUES (10, '侍 祐子', 'yuko.samurai@example.com', 'password', 1, false, NULL);
-INSERT IGNORE INTO users (id, name, email, password, role_id, enabled, subscription_id) VALUES (11, '侍 秋美', 'akimi.samurai@example.com', 'password', 1, false, NULL);
-INSERT IGNORE INTO users (id, name, email, password, role_id, enabled, subscription_id) VALUES (12, '侍 信平', 'shinpei.samurai@example.com', 'password', 1, false, NULL);
+INSERT IGNORE INTO users (id, name, email, password, role_id, enabled) VALUES (1, '侍 太郎',  'taro.samurai@example.com', '$2a$10$2JNjTwZBwo7fprL2X4sv.OEKqxnVtsVQvuXDkI8xVGix.U3W5B7CO', 1, true);
+INSERT IGNORE INTO users (id, name, email, password, role_id, enabled) VALUES(2, '侍 花子', 'hanako.samurai@example.com', '$2a$10$2JNjTwZBwo7fprL2X4sv.OEKqxnVtsVQvuXDkI8xVGix.U3W5B7CO', 3, true);
+INSERT IGNORE INTO users (id, name, email, password, role_id, enabled) VALUES (3, '侍 義勝', 'yoshikatsu.samurai@example.com', 'password', 1, false);
+INSERT IGNORE INTO users (id, name, email, password, role_id, enabled) VALUES (4, '侍 幸美', 'sachimi.samurai@example.com', 'password', 1, false);
+INSERT IGNORE INTO users (id, name, email, password, role_id, enabled) VALUES (5, '侍 雅', 'miyabi.samurai@example.com', 'password', 1, false);
+INSERT IGNORE INTO users (id, name, email, password, role_id, enabled) VALUES (6, '侍 正保','masayasu.samurai@example.com', 'password', 1, false);
+INSERT IGNORE INTO users (id, name, email, password, role_id, enabled) VALUES (7, '侍 真由美', 'mayumi.samurai@example.com', 'password', 1, false);
+INSERT IGNORE INTO users (id, name, email, password, role_id, enabled) VALUES (8, '侍 安民', 'yasutami.samurai@example.com', 'password', 1, false);
+INSERT IGNORE INTO users (id, name, email, password, role_id, enabled) VALUES (9, '侍 章緒', 'akio.samurai@example.com', 'password', 1, false);
+INSERT IGNORE INTO users (id, name, email, password, role_id, enabled) VALUES (10, '侍 祐子', 'yuko.samurai@example.com', 'password', 1, false);
+INSERT IGNORE INTO users (id, name, email, password, role_id, enabled) VALUES (11, '侍 秋美', 'akimi.samurai@example.com', 'password', 1, false);
+INSERT IGNORE INTO users (id, name, email, password, role_id, enabled) VALUES (12, '侍 信平', 'shinpei.samurai@example.com', 'password', 1, false);
 
 --reservations
 INSERT IGNORE INTO reservations (id, restaurant_id, user_id, reservation_date, reservation_time, number_of_people) VALUES 
@@ -133,5 +133,10 @@ INSERT IGNORE INTO reviews (id, restaurant_id, user_id) VALUES
 (8, 8, 1),
 (9, 9, 1),
 (10, 10, 1),
-(11, 11, 1),
-(12, 12, 1);
+(11, 11, 1);
+
+--subscription
+INSERT IGNORE INTO  subscription (id, user_id, stripe_customer_id, stripe_subscription_id) VALUES
+(1, 1,'cus_R3JXL05UplXf30', 'sub_1QBCujIN3pSzdAqcqpphJ3Ft');
+
+
