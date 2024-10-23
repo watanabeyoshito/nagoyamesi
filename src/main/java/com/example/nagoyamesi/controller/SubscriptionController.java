@@ -44,6 +44,8 @@ public class SubscriptionController {
 		
 		model.addAttribute("sessionUrl", sessionUrl);
 		
+		redirectAttributes.addFlashAttribute("successMessage", "有料会員登録が完了しました。");
+		
 		return "redirect:" + sessionUrl;
 	}
 	

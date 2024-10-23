@@ -1,5 +1,6 @@
 package com.example.nagoyamesi.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,8 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class StripeService {
-	private UserService userService;
+	@Autowired
+    private UserService userService;
 	
 	@Value("${stripe.api-key}")
 	private String stripeApiKey;

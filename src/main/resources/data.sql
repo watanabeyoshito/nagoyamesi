@@ -139,4 +139,3 @@ INSERT IGNORE INTO reviews (id, restaurant_id, user_id) VALUES
 INSERT IGNORE INTO  subscription (id, user_id, stripe_customer_id, stripe_subscription_id) VALUES
 (1, 1,'cus_R3JXL05UplXf30', 'sub_1QBCujIN3pSzdAqcqpphJ3Ft');
 
-

@@ -94,8 +94,6 @@ public class UserService {
 		userRepository.save(user);
 		
 		 reauthenticateUser(user.getEmail());
-		
-
 	}
 
 	@Transactional
